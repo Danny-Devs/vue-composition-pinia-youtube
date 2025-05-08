@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue';
+import { ref, reactive } from 'vue';
 import Task from './components/Task.vue';
 import Filters from './components/Filters.vue';
 
@@ -50,6 +50,7 @@ const tasks = reactive([
   }
 ]);
 
+const filterBy = ref('done');
 
 
 let newTask = {
@@ -78,11 +79,10 @@ function toggleCompleted(id) {
 
 function filter(state) {
   if (state === 'todo') {
-    console.log('got here')
-    tasks = tasks.filter(task => !task.completed);
+    filterBy.value = 'todo';
   }
   else {
-    tasks = tasks.filter(task => task.completed);
+    filterBy.value = 'done';
   }
 }
   

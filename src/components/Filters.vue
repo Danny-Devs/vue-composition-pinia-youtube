@@ -1,5 +1,11 @@
 <script setup>
-  
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  filterBy: String
+});
+
+
 </script>
 
 <template>
@@ -7,10 +13,10 @@
     <div>
       <p>Filter by state</p>
       <div class="badges">
-        <div @click="$emit('todo')" class="badge">
+        <div class="badge" :class="{ selected : filterBy === 'todo' }">
           To-Do
         </div>
-        <div @click="$emit('done')" class="badge">
+        <div class="badge" :class="{ selected : filterBy === 'done' ">
           Done
         </div>
         <span class="clear">
@@ -41,7 +47,7 @@
     gap: 12px;
     margin: 14px 0;
     align-items: center;
-  
+
     .badge {
       padding: 8px 7px;
       background-color: var(--gray-color);
@@ -72,6 +78,4 @@
   }
 
 }
-
-
 </style>

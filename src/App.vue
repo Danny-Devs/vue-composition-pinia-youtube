@@ -73,7 +73,7 @@ const tasks = reactive([
 
     <div class="tasks">
       
-      <div class="task" v-for="task in tasks">
+      <div class="task" v-for="(task, index) in tasks" :key="index" >
         <h3>
           {{ task.name }}
         </h3>
@@ -81,14 +81,12 @@ const tasks = reactive([
           {{ task.description }}
         </p>
         <div class="task-check">
-          <input type="checkbox" checked />
+          <input type="checkbox" v-model="task.completed" />
           <label>
             {{ task.completed ? "Done" : "To-Do" }}
           </label>
         </div>
       </div>
-
-      
 
     </div>
 

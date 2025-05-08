@@ -1,6 +1,9 @@
 <script setup>
+import { ref, reactive } from 'vue';
 
-const tasks= [
+const appName = ref("My new task manager");
+  
+const tasks= reactive([
     {
       name: "Website design",
       description: "Define the style guide, branding and create the webdesign on Figma.",
@@ -36,7 +39,7 @@ const tasks= [
       description: "Open a bank account for my freelance business.",
       completed: false
     }
-];
+]);
 
 </script>
 
@@ -46,7 +49,7 @@ const tasks= [
     <div class="header">
       <div class="header-side">
         <h1>
-          My Tasks Manager
+          {{ appName }}
         </h1>
       </div>
     </div>

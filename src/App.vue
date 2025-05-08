@@ -3,7 +3,7 @@ import { ref, reactive } from 'vue';
 
 const appName = ref("My new task manager");
   
-const tasks= reactive([
+const tasks = reactive([
     {
       name: "Website design",
       description: "Define the style guide, branding and create the webdesign on Figma.",
@@ -73,35 +73,22 @@ const tasks= reactive([
 
     <div class="tasks">
       
-      <div class="task">
+      <div class="task" v-for="task in tasks">
         <h3>
-          Website design
+          {{ task.name }}
         </h3>
         <p>
-          Define the style guide, branding and create the web design on Figma.
+          {{ task.description }}
         </p>
         <div class="task-check">
           <input type="checkbox" checked />
           <label>
-            Done
+            {{ task.completed ? "Done" : "To-Do" }}
           </label>
         </div>
       </div>
 
-      <div class="task">
-        <h3>
-          Website development
-        </h3>
-        <p>
-          Develop the portfolio website using Vue JS.
-        </p>
-        <div class="task-check">
-          <input type="checkbox"/>
-          <label>
-            To-Do
-          </label>
-        </div>
-      </div>
+      
 
     </div>
 

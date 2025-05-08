@@ -1,7 +1,7 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { reactive } from 'vue';
 
-const appName = ref("My new task manager");
+const appName = "My new task manager";
 
 const tasks = reactive([
   {
@@ -41,14 +41,20 @@ const tasks = reactive([
   }
 ]);
 
-const newTask = reactive({
+let newTask = {
   name: "",
   description: "",
   completed: false
-})
+}
 
 function addTask() {
-  tasks.push(newTask);
+  if (newTask.name && newTask.description) {
+    tasks.push(newTask);
+    newTask = { completed: false }
+  } else {
+    alert("Please fill in all fields")
+  }
+  
 }
 
 </script>
@@ -81,27 +87,12 @@ function addTask() {
     </div>
 
     <div class="tasks">
-
-      <div class="task" v-for="(task, index) in tasks" :key="index">
-        <h3>
-          {{ task.name }}
-        </h3>
-        <p>
-          {{ task.description }}
-        </p>
-        <div class="task-check">
-          <input type="checkbox" v-model="task.completed" />
-          <label>
-            {{ task.completed ? "Done" : "To-Do" }}
-          </label>
-        </div>
-      </div>
-
+      <Task v-for="(task, index) in tasks" :task="task" :key="index" />
     </div>
 
     <div class="add-task">
       <h3>Add a new task</h3>
-      <input type="text" name="title" placeholder="Enter a title..." v-model="newTask.name" ><br />
+      <input type="text" name="title" placeholder="Enter a title..." v-model="newTask.name"><br />
       <textarea name="description" rows="4" placeholder="Enter a description..." v-model="newTask.description" /><br />
       <button class="btn gray" @click="addTask">Add Task</button>
 

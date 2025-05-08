@@ -79,14 +79,11 @@ function toggleCompleted(id) {
 
 function filter(state) {
   if (state === 'todo') {
-    console.log('todo')
     filterBy.value = 'todo';
   }
   else if (state === 'done') {
-    console.log('done')
     filterBy.value = 'done';
   } else {
-    console.log('clear')
     filterBy.value = '';
   }
 }

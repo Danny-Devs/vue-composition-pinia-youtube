@@ -16,7 +16,7 @@ const { task } = defineProps({
       {{ task.description }}
     </p>
     <div class="task-check">
-      <input type="checkbox" v-model="task.completed" />
+      <input @click="$emit('toggleCompleted', task.id)" type="checkbox" v-model="task.completed" />
       <label>
         {{ task.completed ? "Done" : "To-Do" }}
       </label>

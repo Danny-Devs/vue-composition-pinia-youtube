@@ -1,6 +1,7 @@
 <script setup>
 import { reactive } from 'vue';
 import Task from './components/Task.vue';
+import Filters from './components/Filters.vue';
 
 const appName = "Task manager";
 
@@ -8,39 +9,48 @@ const tasks = reactive([
   {
     name: "Website design",
     description: "Define the style guide, branding and create the webdesign on Figma.",
-    completed: true
+    completed: true,
+    id: 1
   },
   {
     name: "Website development",
     description: "Develop the portfolio website using Vue JS.",
-    completed: false
+    completed: false,
+    id: 2
   },
   {
     name: "Hosting and infrastructure",
     description: "Define hosting, domain and infrastructure for the portfolio website.",
-    completed: false
+    completed: false,
+    id: 3
   },
   {
     name: "Composition API",
     description: "Learn how to use the composition API and how it compares to the options API.",
-    completed: true
+    completed: true,
+    id: 4
   },
   {
     name: "Pinia",
     description: "Learn how to setup a store using Pinia.",
-    completed: true
+    completed: true,
+    id: 5
   },
   {
     name: "Groceries",
     description: "Buy rice, apples and potatos.",
-    completed: false
+    completed: false,
+    id: 6
   },
   {
     name: "Bank account",
     description: "Open a bank account for my freelance business.",
-    completed: false
+    completed: false,
+    id: 7
   }
 ]);
+
+
 
 let newTask = {
   name: "",
@@ -50,14 +60,32 @@ let newTask = {
 
 function addTask() {
   if (newTask.name && newTask.description) {
+    newTask.id = Math.max(...tasks.map(task => task.id)) + 1;
     tasks.push(newTask);
     newTask = { completed: false }
   } else {
     alert("Please fill in all fields")
   }
+}
+
+function toggleCompleted(id) {
+  const task = tasks.find(task => task.id === id);
+  if (task) {
+    task.completed = !task.completed;
+  }
   
 }
 
+function filter(state) {
+  if (state === 'todo') {
+    console.log('got here')
+    tasks = tasks.filter(task => !task.completed);
+  }
+  else {
+    tasks = tasks.filter(task => task.completed);
+  }
+}
+  
 </script>
 
 <template>
@@ -70,25 +98,10 @@ function addTask() {
       </div>
     </div>
 
-    <div class="filters">
-      <div>
-        <p>Filter by state</p>
-        <div class="badges">
-          <div class="badge">
-            To-Do
-          </div>
-          <div class="badge">
-            Done
-          </div>
-          <span class="clear">
-            x clear
-          </span>
-        </div>
-      </div>
-    </div>
+    <Filters @todo="() => filter('todo')" @done="() => filter('done')" />
 
     <div class="tasks">
-      <Task v-for="(task, index) in tasks" :task="task" :key="index" />
+      <Task @toggleCompleted="toggleCompleted" v-for="(task, index) in tasks" :task="task" :key="index" />
     </div>
 
     <div class="add-task">
@@ -96,7 +109,6 @@ function addTask() {
       <input type="text" name="title" placeholder="Enter a title..." v-model="newTask.name"><br />
       <textarea name="description" rows="4" placeholder="Enter a description..." v-model="newTask.description" /><br />
       <button class="btn gray" @click="addTask">Add Task</button>
-
     </div>
 
   </main>
@@ -129,38 +141,6 @@ function addTask() {
 
 }
 
-.filters {
-  display: flex;
-  flex-direction: column;
-  margin: 40px 0;
-
-  p {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 21px;
-    letter-spacing: 0em;
-    text-align: left;
-  }
-
-  .badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 14px 0;
-    align-items: center;
-  }
-
-  .clear {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: 0em;
-    text-align: left;
-    cursor: pointer;
-  }
-
-}
-
 .tasks {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -170,8 +150,6 @@ function addTask() {
     grid-template-columns: repeat(1, 1fr);
   }
 }
-
-
 
 .add-task {
   margin-top: 60px;

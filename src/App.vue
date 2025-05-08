@@ -101,7 +101,7 @@ function addTask() {
 
     <div class="add-task">
       <h3>Add a new task</h3>
-      <input type="text" name="title" placeholder="Enter a title..." v-model="newTask.name"><br />
+      <input type="text" name="title" placeholder="Enter a title..." v-model="newTask.name" ><br />
       <textarea name="description" rows="4" placeholder="Enter a description..." v-model="newTask.description" /><br />
       <button class="btn gray" @click="addTask">Add Task</button>
 

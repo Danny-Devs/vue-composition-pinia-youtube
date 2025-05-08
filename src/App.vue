@@ -2,49 +2,58 @@
 import { ref, reactive } from 'vue';
 
 const appName = ref("My new task manager");
-  
+
 const tasks = reactive([
-    {
-      name: "Website design",
-      description: "Define the style guide, branding and create the webdesign on Figma.",
-      completed: true
-    },
-    {
-      name: "Website development",
-      description: "Develop the portfolio website using Vue JS.",
-      completed: false
-    },
-    {
-      name: "Hosting and infrastructure",
-      description: "Define hosting, domain and infrastructure for the portfolio website.",
-      completed: false
-    },
-    {
-      name: "Composition API",
-      description: "Learn how to use the composition API and how it compares to the options API.",
-      completed: true
-    },
-    {
-      name: "Pinia",
-      description: "Learn how to setup a store using Pinia.",
-      completed: true
-    },
-    {
-      name: "Groceries",
-      description: "Buy rice, apples and potatos.",
-      completed: false
-    },
-    {
-      name: "Bank account",
-      description: "Open a bank account for my freelance business.",
-      completed: false
-    }
+  {
+    name: "Website design",
+    description: "Define the style guide, branding and create the webdesign on Figma.",
+    completed: true
+  },
+  {
+    name: "Website development",
+    description: "Develop the portfolio website using Vue JS.",
+    completed: false
+  },
+  {
+    name: "Hosting and infrastructure",
+    description: "Define hosting, domain and infrastructure for the portfolio website.",
+    completed: false
+  },
+  {
+    name: "Composition API",
+    description: "Learn how to use the composition API and how it compares to the options API.",
+    completed: true
+  },
+  {
+    name: "Pinia",
+    description: "Learn how to setup a store using Pinia.",
+    completed: true
+  },
+  {
+    name: "Groceries",
+    description: "Buy rice, apples and potatos.",
+    completed: false
+  },
+  {
+    name: "Bank account",
+    description: "Open a bank account for my freelance business.",
+    completed: false
+  }
 ]);
+
+const newTask = reactive({
+  name: "",
+  description: "",
+  completed: false
+})
+
+function addTask() {
+  tasks.push(newTask);
+}
 
 </script>
 
 <template>
-
   <main class="container">
     <div class="header">
       <div class="header-side">
@@ -53,7 +62,7 @@ const tasks = reactive([
         </h1>
       </div>
     </div>
-    
+
     <div class="filters">
       <div>
         <p>Filter by state</p>
@@ -72,8 +81,8 @@ const tasks = reactive([
     </div>
 
     <div class="tasks">
-      
-      <div class="task" v-for="(task, index) in tasks" :key="index" >
+
+      <div class="task" v-for="(task, index) in tasks" :key="index">
         <h3>
           {{ task.name }}
         </h3>
@@ -92,21 +101,17 @@ const tasks = reactive([
 
     <div class="add-task">
       <h3>Add a new task</h3>
-      <input type="text" name="title" placeholder="Enter a title..."><br />
-      <textarea name="description" rows="4" placeholder="Enter a description..." /><br />
-      <button class="btn gray">Add Task</button>
+      <input type="text" name="title" placeholder="Enter a title..." v-model="newTask.name"><br />
+      <textarea name="description" rows="4" placeholder="Enter a description..." v-model="newTask.description" /><br />
+      <button class="btn gray" @click="addTask">Add Task</button>
 
     </div>
 
   </main>
-  
-   
-
 </template>
 
 
 <style lang="scss" scoped>
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -254,7 +259,8 @@ const tasks = reactive([
 .add-task {
   margin-top: 60px;
 
-  input, textarea {
+  input,
+  textarea {
     width: 360px;
     max-width: 100%;
     margin-top: 12px;
@@ -266,5 +272,4 @@ const tasks = reactive([
     margin-top: 12px;
   }
 }
-
 </style>

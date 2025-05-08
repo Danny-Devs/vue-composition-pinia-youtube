@@ -50,7 +50,7 @@ const tasks = reactive([
   }
 ]);
 
-const filterBy = ref('done');
+const filterBy = ref('');
 
 
 let newTask = {
@@ -79,10 +79,15 @@ function toggleCompleted(id) {
 
 function filter(state) {
   if (state === 'todo') {
+    console.log('todo')
     filterBy.value = 'todo';
   }
-  else {
+  else if (state === 'done') {
+    console.log('done')
     filterBy.value = 'done';
+  } else {
+    console.log('clear')
+    filterBy.value = '';
   }
 }
   
@@ -98,7 +103,7 @@ function filter(state) {
       </div>
     </div>
 
-    <Filters @todo="() => filter('todo')" @done="() => filter('done')" />
+    <Filters @todo="() => filter('todo')" @done="() => filter('done')" @click="() => filter('clear')" :filterBy="filterBy" />
 
     <div class="tasks">
       <Task @toggleCompleted="toggleCompleted" v-for="(task, index) in tasks" :task="task" :key="index" />

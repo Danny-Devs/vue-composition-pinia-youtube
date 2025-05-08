@@ -13,13 +13,13 @@ const props = defineProps({
     <div>
       <p>Filter by state</p>
       <div class="badges">
-        <div class="badge" :class="{ selected : filterBy === 'todo' }">
+        <div @click="$emit('todo')" class="badge" :class="{ selected : filterBy === 'todo' }">
           To-Do
         </div>
-        <div class="badge" :class="{ selected : filterBy === 'done' ">
+        <div @click="$emit('done')" class="badge" :class="{ selected : filterBy === 'done' }">
           Done
         </div>
-        <span class="clear">
+        <span @click="$emit('clear')" class="clear">
           x clear
         </span>
       </div>

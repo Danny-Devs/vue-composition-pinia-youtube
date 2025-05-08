@@ -14,6 +14,9 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    allowedHosts: 'all'
+    hmr: {
+      clientPort: 443,
+      host: 'dca1e070-3768-4489-af24-9b16f7f73f35-00-6jaruhnmzz5j.worf.replit.dev'
+    }
   }
 })

@@ -46,7 +46,7 @@ const tasks= [
     <div class="header">
       <div class="header-side">
         <h1>
-          Tasks Manager
+          My Tasks Manager
         </h1>
       </div>
     </div>
@@ -75,7 +75,7 @@ const tasks= [
           Website design
         </h3>
         <p>
-          Define the style guide, branding and create the webdesign on Figma.
+          Define the style guide, branding and create the web design on Figma.
         </p>
         <div class="task-check">
           <input type="checkbox" checked />
@@ -278,6 +278,5 @@ const tasks= [
     margin-top: 12px;
   }
 }
-
 
 </style>
